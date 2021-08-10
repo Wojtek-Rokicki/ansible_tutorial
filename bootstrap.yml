@@ -4,18 +4,18 @@
   become: true
   pre_tasks:
 
-  - name: update repo cache (CentOS)
+  - name: install updates (CentOS)
     tags: always
     dnf:
+      update_only: yes
       update_cache: yes
-    changed_when: false
     when: ansible_distribution == "CentOS"
 
-  - name: update repo cache (Ubuntu)
+  - name: install updates (Ubuntu)
     tags: always
     apt:
+      upgrade: dist
       update_cache: yes
-    changed_when: false
     when: ansible_distribution == "Ubuntu"
 
 
