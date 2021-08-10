@@ -18,6 +18,17 @@
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
+
+- hosts: all
+  become: true
+  tasks:
+
+    - name: add ssh key for simone
+      tags: always
+      authorized_key:
+        user: simone
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII1WpoC2bPh814dnBWyS6PHF+kUpsV/6CZaaya8fokXL ansible"
+
 - hosts: workstations
   become: true
   tasks:
@@ -34,6 +45,7 @@
         mode: 0755
         owner: root
         group: root
+
 
 - hosts: web_servers
   become: true
@@ -90,6 +102,7 @@
       group: root
       mode: 0644
 
+
 - hosts: db_servers
   become: true
   tasks:
@@ -107,6 +120,7 @@
         name: mariadb-server
         state: latest
       when: ansible_distribution == "Ubuntu"
+
 
 - hosts: file_servers
   become: true
